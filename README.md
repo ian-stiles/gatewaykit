@@ -12,8 +12,8 @@ To set up build:
 1. Use Intellij with dependent libraries
 2. Update the build.gradle file accordingly
 3. Add VM argument with path to the config file (-DGATEWAY_FILE=gateway.yaml)
-4. Run the stand-alone JAR with the following:
-   java -jar gatewaykit-1.0.1-SNAPSHOT.jar
+4. Run the stand-alone JAR with the following on LINUX:
+   java -DGATEWAY_FILE=.\gateway.yaml -jar gatewaykit-1.0.1-SNAPSHOT.jar
 
 
 Next Planned steps
