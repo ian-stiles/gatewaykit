@@ -60,6 +60,8 @@ dependencies {
     implementation project(':model')
     implementation project(':commons')
 
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.0'
+
     //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.7.14'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 
