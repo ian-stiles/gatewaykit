@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="us">
+<head>
+    <style>table, th, td {border: 1px solid black; border-collapse: collapse; padding: 2px} td { text-align: right; }</style>
+    <title>Underhost Control</title>
+</head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta http-equiv="Content-Language" content="en">
+<body style="font-family:verdana,sans-serif; font-size:14px">
+<form action="counters.html">
+    <input type="submit" value="/counters.html"/>
+</form>
+<form action="control.html">
+    <label>
+        <input hidden type="text" name="actionUrl" value="start"/>
+    </label>
+    <input type="submit" value="/start"/>
+</form>
+<form action="control.html">
+    <label>
+        <input hidden type="text" name="actionUrl" value="stop"/>
+    </label>
+    <input type="submit" value="/stop"/>
+</form>
+<form action="health" target="_blank">
+    <input type="submit" value="/health"/>
+</form>
+<form action="control.html">
+    <input hidden type="text" name="actionUrl" value="reset-counters"/>
+    <input type="submit" value="/reset-counters"/>
+</form>
+<form action="control.html">
+    <label>
+        <input hidden type="text" name="actionUrl" value="terminate"/>
+    </label>
+    <input type="submit" value="/terminate"/>
+</form>
+
+<hr/>
+
+</body>
+</html>

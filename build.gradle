@@ -1,0 +1,83 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE"
+    }
+}
+
+plugins {
+    id 'buildlogic.java-library-conventions'
+    id 'java-library'
+    //    id 'war'
+    id 'maven-publish'
+}
+
+apply plugin: 'idea'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+
+group 'com.tactical.backend'
+version '1.0.1-SNAPSHOT'
+
+springBoot {
+    mainClass = "com.tactical.backend.gatewaykit.GatewayKitApplication"
+}
+
+//war {
+//    archiveFileName = 'tactical-host.war'
+//    enabled = true
+//}
+
+bootJar {
+    enabled = true
+}
+
+tasks.register('sourceJar', Jar) {
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        create('mavenJava', MavenPublication) {
+            from components.java
+
+//            artifact sourceJar {
+//                classifier "sources"
+//            }
+        }
+    }
+}
+
+test {
+    useTestNG()
+}
+
+dependencies {
+    implementation project(':gwt_model')
+    implementation project(':model')
+    implementation project(':commons')
+
+    //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.7.14'
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.14'
+    implementation 'org.springframework.boot:spring-boot-starter-aop:2.7.14'
+    implementation 'commons-lang:commons-lang:2.6'
+    implementation 'com.googlecode.jatl:jatl:0.2.3'
+
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'org.mapstruct:mapstruct-processor:1.4.1.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
+
+//    implementation 'io.springfox:springfox-swagger2:3.0.0'
+//    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+//    implementation 'org.slf4j:slf4j-api:2.0.16'
+//    implementation 'ch.qos.logback:logback-classic:1.3.7'
+
+    testImplementation 'org.testng:testng:6.14.3' // Required for Java 8, which is required by GWT
+    testImplementation 'com.openpojo:openpojo:0.9.1'
+}
