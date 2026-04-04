@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
@@ -177,13 +178,25 @@ public class GatewayKitController {
     // Non-standard functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @RequestMapping(value = "/junk", method = RequestMethod.GET)
-    public String fillGhlTimezones(
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String anyGetMethod(
             HttpServletResponse response,
-            @RequestParam(name = "startFromBeginning", required = false, defaultValue = "false") boolean startFromBeginning
-    ) {
-        LOGGER.info("Endpoint: junk");
+            HttpServletRequest request) {
+        LOGGER.info("Endpoint GET: " + request.getMethod());
 
-        return "junk started";
+        // Use this method to traverse routes and forward to the correct service and return result
+
+        return "";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String anyPostMethod(
+            HttpServletResponse response,
+            HttpServletRequest request) {
+        LOGGER.info("Endpoint POST: " + request.getMethod());
+
+        // Use this method to traverse routes and forward to the correct service and return result
+
+        return "";
     }
 }
