@@ -14,13 +14,14 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class GatewayKitService {
 
@@ -62,7 +63,13 @@ public class GatewayKitService {
     }
 
     public void loadGatewayYamlFile(String filename) {
-        String yamlContent = ResourceUtils.getInstance().load(filename);
+        String yamlContent;
+        try {
+            yamlContent = Files.lines(Paths.get(filename))
+                    .collect(Collectors.joining("\n"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
             configYaml = mapper.readValue(yamlContent, ConfigYaml.class);

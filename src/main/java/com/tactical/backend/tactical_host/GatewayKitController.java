@@ -47,7 +47,8 @@ public class GatewayKitController {
             synchronized (lockGatewayKitServiceCreation) {
                 if (gatewayKitService == null) {
                     gatewayKitService = new GatewayKitService();
-                    gatewayKitService.loadGatewayYamlFile("gateway.yaml");
+                    String gatewayFilePath = System.getProperty("GATEWAY_FILE");
+                    gatewayKitService.loadGatewayYamlFile(gatewayFilePath);
 
                     if (autoStart) {
                         gatewayKitService.start();
