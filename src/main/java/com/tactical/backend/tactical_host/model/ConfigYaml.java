@@ -1,5 +1,6 @@
 package com.tactical.backend.tactical_host.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,21 @@ public class ConfigYaml {
 
     public Gateway gateway;
     public List<Route> routes;
+
+    private Map<String, Route> routeMap;
+
+    public Route findRoute(String path) {
+        if (routeMap == null) {
+            synchronized (routes) {
+                routeMap = new HashMap<>();
+                for (Route route : routes) {
+                    routeMap.put(route.path, route);
+                }
+            }
+        }
+
+        return routeMap.get(path);
+    }
 
     public static class Gateway {
         public int port;

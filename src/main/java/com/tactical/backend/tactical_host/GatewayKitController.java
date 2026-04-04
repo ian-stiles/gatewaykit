@@ -30,7 +30,7 @@ public class GatewayKitController {
 
     private String controlHtml;
 
-    private long serviceStartTime = System.currentTimeMillis();
+    private final long serviceStartTime = System.currentTimeMillis();
 
     public GatewayKitController() {
         EndpointUtils.setApplicationName("GatewayKit");
@@ -47,6 +47,8 @@ public class GatewayKitController {
             synchronized (lockGatewayKitServiceCreation) {
                 if (gatewayKitService == null) {
                     gatewayKitService = new GatewayKitService();
+                    gatewayKitService.loadGatewayYamlFile("gateway.yaml");
+
                     if (autoStart) {
                         gatewayKitService.start();
                     }
@@ -89,7 +91,7 @@ public class GatewayKitController {
     @ApiIgnore
     public void start() {
         LOGGER.info("Endpoint: start");
-        getGatewayKitService(false).start();
+        getGatewayKitService(true).start();
     }
 
     @RequestMapping(value = "/stop", method = RequestMethod.GET)
@@ -178,25 +180,14 @@ public class GatewayKitController {
     // Non-standard functions
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String anyGetMethod(
+    @RequestMapping(value = "/**")
+    public void anyMethod(
             HttpServletResponse response,
             HttpServletRequest request) {
-        LOGGER.info("Endpoint GET: " + request.getMethod());
+        LOGGER.info(String.format("Endpoint %s: %s", request.getMethod(), request.getRequestURI()));
 
-        // Use this method to traverse routes and forward to the correct service and return result
-
-        return "";
+        getGatewayKitService(true).routeRequest(request, response);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String anyPostMethod(
-            HttpServletResponse response,
-            HttpServletRequest request) {
-        LOGGER.info("Endpoint POST: " + request.getMethod());
-
-        // Use this method to traverse routes and forward to the correct service and return result
-
-        return "";
-    }
 }
+
