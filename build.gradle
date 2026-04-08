@@ -11,7 +11,7 @@ buildscript {
 plugins {
     id 'buildlogic.java-library-conventions'
     id 'java-library'
-    //    id 'war'
+//    id 'war'
     id 'maven-publish'
 }
 
@@ -23,7 +23,7 @@ group 'com.tactical.backend'
 version '1.0.1-SNAPSHOT'
 
 springBoot {
-    mainClass = "com.tactical.backend.gatewaykit.GatewayKitApplication"
+    mainClass = "com.tactical.backend.tactical_host.GatewayKitApplication"
 }
 
 //war {
